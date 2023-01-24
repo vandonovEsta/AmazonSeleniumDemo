@@ -62,12 +62,7 @@ namespace AmazonDemo.helpers
             return actions;
         }
 
-        public WebDriverWait GetDriverWait(int timeOut)
-        {
-            
-            wait.Timeout = TimeSpan.FromSeconds(timeOut);
-            return wait;
-        }
+       
 
         public IWebElement FindElementById(string id)
         {

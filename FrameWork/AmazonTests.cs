@@ -7,11 +7,12 @@ using AmazonDemo.Utils;
 using AmazonDemo.Pages.ResultsPages.ResultPojo;
 using AmazonDemo.Pages.ProductPages;
 using AmazonDemo.Pages.CartPages;
+using AmazonDemo.TestFramework;
 
 namespace AmazonDemo
 {
     [TestFixture]
-    public class AmazonTests
+    public class AmazonTests : BaseTests
     {
         
         private HomePage amazonPage;
@@ -85,11 +86,7 @@ namespace AmazonDemo
         }
 
 
-        [TearDown]
-        public void TearDown() 
-        {
-            amazonPage.Quit();
-        }
+       
 
     }
 }

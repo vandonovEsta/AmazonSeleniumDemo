@@ -1,4 +1,5 @@
 ﻿using AmazonDemo.helpers;
+using AmazonDemo.TestFramework;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -13,7 +14,7 @@ using WebElement = AmazonDemo.helpers.WebElement;
 namespace AmazonDemo
 {
     [TestFixture]
-    internal class FrameworkUnitTests
+    internal class FrameworkUnitTests : BaseTests
     {
         private IWebDriver driver ;
 
@@ -26,7 +27,7 @@ namespace AmazonDemo
         [Test]
         public void testSingletonDriver()
         {
-            driver.Navigate().GoToUrl("http://www.abv.bg");
+            driver.Navigate().GoToUrl("http://www.google.com");
         }
 
         [Test]
@@ -35,11 +36,10 @@ namespace AmazonDemo
             //WebElement element = new helpers.WebElement(driver, By.Id("1234"));
             //Assert.AreEqual("", element.Locator);
             driver.Navigate().GoToUrl("http://www.abv.bg");
-            WebDriverWait wait = WebDriverHelper.Instance.GetDriverWait(10);
             //WebElement element = new WebElement(driver, By.Id("username"));
             //IWebElement webElement = driver.FindElement(By.Id("username"));
             //Assert.AreEqual("", element.ToStrin);
-            wait.Until(ExpectedConditions.ElementExists(By.Id("1654")));
+            WebDriverHelper.Instance.WaitUntilById("1654", 10);
         }
     }
 }

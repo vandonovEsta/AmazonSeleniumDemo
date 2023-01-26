@@ -1,7 +1,7 @@
-﻿using AmazonDemo.helpers;
-using AmazonDemo.Pages.CartPages;
+﻿using AmazonDemo.Pages.CartPages;
+using AmazonDemo.Pages.DealsPages;
+using AmazonDemo.TestFramework.helpers;
 using OpenQA.Selenium;
-using System.Reflection.Metadata.Ecma335;
 
 namespace AmazonDemo.Pages.SubPages.HeaderSubPages
 
@@ -42,6 +42,14 @@ namespace AmazonDemo.Pages.SubPages.HeaderSubPages
         {
             goToCartLink.Click();
             return new CartPage();
+        }
+
+        public DealsPage GoToTodaysDeals()
+        {
+            
+            todaysDealsLink.Click();
+            return new DealsPage();
+            
         }
     }
 }

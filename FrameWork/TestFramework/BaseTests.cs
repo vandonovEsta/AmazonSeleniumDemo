@@ -1,15 +1,10 @@
-﻿using AmazonDemo.helpers;
+﻿using AmazonDemo.TestFramework.helpers;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RazorEngine.Compilation.ImpromptuInterface.Dynamic;
 
 namespace AmazonDemo.TestFramework
 {
@@ -20,7 +15,6 @@ namespace AmazonDemo.TestFramework
         protected ExtentHtmlReporter _extentHtmlReporter;
         protected ExtentReports _extent;
         public ExtentTest _test;
-        //public string TC_Name;
 
         [OneTimeSetUp]
         public void ExtendStart()
@@ -28,8 +22,9 @@ namespace AmazonDemo.TestFramework
             string path = System.Reflection.Assembly.GetCallingAssembly().Location;
             var actualPath = path.Substring(0, path.LastIndexOf("bin"));
             var projectPath = new Uri(actualPath).LocalPath;
-            Directory.CreateDirectory(projectPath.ToString() + "Reports");
-            reportPath = projectPath + "Reports\\Index.html";
+            string reportFolder = "Reports\\" + TestContext.CurrentContext.Test.ClassName;
+            Directory.CreateDirectory(projectPath.ToString() + reportFolder);
+            reportPath = projectPath + $"{reportFolder}\\Index.html";
 
             _extentHtmlReporter = new ExtentHtmlReporter(reportPath);
 
@@ -123,8 +118,9 @@ namespace AmazonDemo.TestFramework
             var pth = System.Reflection.Assembly.GetCallingAssembly().CodeBase;
             var actualPath = pth.Substring(0, pth.LastIndexOf("bin"));
             var reportPath = new Uri(actualPath).LocalPath;
-            Directory.CreateDirectory(reportPath + "Reports\\" + "Screenshots");
-            var finalpth = pth.Substring(0, pth.LastIndexOf("bin")) + "Reports\\Screenshots\\" + screenShotName;
+            string screenshotFolder = "Reports\\" + TestContext.CurrentContext.Test.ClassName;
+            Directory.CreateDirectory(reportPath + screenshotFolder + "\\Screenshots");
+            var finalpth = pth.Substring(0, pth.LastIndexOf("bin")) + $"{screenshotFolder}\\Screenshots\\" + screenShotName;
             var localpath = new Uri(finalpth).LocalPath;
             screenshot.SaveAsFile(localpath, ScreenshotImageFormat.Png);
             return reportPath;

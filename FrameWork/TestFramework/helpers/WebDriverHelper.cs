@@ -3,14 +3,8 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace AmazonDemo.helpers
+namespace AmazonDemo.TestFramework.helpers
 {
     public sealed class WebDriverHelper
     {
@@ -19,31 +13,33 @@ namespace AmazonDemo.helpers
         private static WebDriverWait wait;
         private static Actions actions;
         private static bool isDisposed = false;
-        private WebDriverHelper() {
+        private WebDriverHelper()
+        {
             driver = new ChromeDriver();
-            
+
         }
 
-        public static WebDriverHelper Instance { 
-            get 
-            { 
-                if(instance == null)
+        public static WebDriverHelper Instance
+        {
+            get
+            {
+                if (instance == null)
                 {
                     instance = new WebDriverHelper();
                 }
-                return instance; 
-            } 
+                return instance;
+            }
         }
 
-        public  IWebDriver GetDriver()
+        public IWebDriver GetDriver()
         {
             //This may be redundant
-            if(isDisposed)
+            if (isDisposed)
             {
-               driver = new ChromeDriver();
+                driver = new ChromeDriver();
                 isDisposed = false;
             }
-            return driver; 
+            return driver;
         }
         public void Close()
         {
@@ -52,8 +48,8 @@ namespace AmazonDemo.helpers
         public void Quit()
         {
             driver.Quit();
-            isDisposed = true; 
-            
+            isDisposed = true;
+
         }
 
         public Actions GetActions()
@@ -62,7 +58,7 @@ namespace AmazonDemo.helpers
             return actions;
         }
 
-       
+
 
         public IWebElement FindElementById(string id)
         {
@@ -81,13 +77,25 @@ namespace AmazonDemo.helpers
 
         public List<IWebElement> FindElementsByXpath(string xpath)
         {
-            return driver.FindElements(By.XPath(xpath)).ToList(); 
+            return driver.FindElements(By.XPath(xpath)).ToList();
         }
 
-        public void WaitUntilById(string id, int timeOutInSeconds)
+        public IWebElement WaitUntilById(string id, int timeOutInSeconds)
         {
             wait = new WebDriverWait(GetDriver(), TimeSpan.FromSeconds(timeOutInSeconds));
-            wait.Until(ExpectedConditions.ElementExists(By.Id(id)));
+            return wait.Until(ExpectedConditions.ElementExists(By.Id(id)));
+        }
+
+        public IWebElement WaitUntilExistsByXpath(string xpath, int timeOutInSeconds)
+        {
+            wait = new WebDriverWait(GetDriver(), TimeSpan.FromSeconds(timeOutInSeconds));
+            return wait.Until(ExpectedConditions.ElementExists(By.XPath(xpath)));
+        }
+
+        public bool WaitUntilNotVisibleByXpath(string xpath, int timeOutInSeconds)
+        {
+            wait = new WebDriverWait(GetDriver(), TimeSpan.FromSeconds(timeOutInSeconds));
+            return wait.Until(driver => (driver.FindElements(By.XPath(xpath)).ToList().Count == 0));
         }
 
     }

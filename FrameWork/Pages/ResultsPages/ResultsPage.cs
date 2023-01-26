@@ -1,9 +1,7 @@
-﻿using AmazonDemo.helpers;
-using AmazonDemo.Pages.ProductPages;
+﻿using AmazonDemo.Pages.ProductPages;
 using AmazonDemo.Pages.ResultsPages.ResultPojo;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
-using System.Xml.Linq;
 
 namespace AmazonDemo.Pages.ResultsPages
 {

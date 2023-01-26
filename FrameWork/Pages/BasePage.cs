@@ -1,12 +1,7 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using System.Reflection;
 using AmazonDemo.Pages.SubPages.HeaderSubPages;
 using AmazonDemo.Pages.ResultsPages;
-using AmazonDemo.helpers;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using OpenQA.Selenium.Interactions;
+using AmazonDemo.TestFramework.helpers;
 
 namespace AmazonDemo.Pages
 {
@@ -14,7 +9,7 @@ namespace AmazonDemo.Pages
     {
         protected WebDriverHelper _driverHelper;
         protected Header header;
-
+        protected bool maximizePage = false;
         protected const int EXPLICID_WAIT_TIME = 15;
 
 
@@ -29,6 +24,20 @@ namespace AmazonDemo.Pages
 
         }
 
+        public BasePage(bool maximizePage) :this()
+        {
+            this.maximizePage = maximizePage;
+        }
+
+        public void NavigateTo()
+        {
+            this._driverHelper.GetDriver().Navigate().GoToUrl("https://www.amazon.com/");
+
+            if (maximizePage)
+            {
+                this._driverHelper.GetDriver().Manage().Window.Maximize();
+            }
+        }
 
 
         public void  Close()

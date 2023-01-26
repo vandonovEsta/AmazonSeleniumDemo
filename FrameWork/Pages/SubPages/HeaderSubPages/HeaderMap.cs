@@ -11,6 +11,6 @@ namespace AmazonDemo.Pages.SubPages.HeaderSubPages
         private string cartPreviewBoxId = "ewc-content";
         private IWebElement cartPreviewBox => _driverHelper.FindElementById(cartPreviewBoxId);
 
-        
+        private IWebElement todaysDealsLink => _driverHelper.FindElementByXpath("//a[contains(text(), 'Today') and contains(text(), 'Deals')]");
     }
 }
